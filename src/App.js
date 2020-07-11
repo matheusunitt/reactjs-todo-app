@@ -1,11 +1,13 @@
 import React from 'react';
 
+import Layout from './components/Layout'
+
 import GlobalStyles from './styles/GlobalStyles';
 
 function App() {
   return (
     <React.Fragment>
-      <h1>Hello there.</h1>
+      <Layout />
       <GlobalStyles />
     </React.Fragment>
   );

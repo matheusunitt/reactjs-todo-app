@@ -25,6 +25,6 @@ export default createGlobalStyle`
     --black: #000;
     --primary: blue;
     --secondary: red;
-    --gray: #ccc;
+    --grey: #ccc;
   }
 `;
