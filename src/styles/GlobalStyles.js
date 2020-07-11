@@ -26,5 +26,7 @@ export default createGlobalStyle`
     --primary: blue;
     --secondary: red;
     --grey: #ccc;
+    --link-colour: #6d8fb3;
+    --link-hover-colour: #3e7ab9;
   }
 `;

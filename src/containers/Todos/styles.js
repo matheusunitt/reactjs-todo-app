@@ -7,16 +7,16 @@ export const Container = styled.div`
 `;
 
 export const TodoForm = styled.div`
-  margin: 0 0 15px 0;
+  margin: 0 0 25px 0;
 
-  & > input[type=text] {
+  & > form > input[type=text] {
     padding: 10px 20px;
     border: 1px solid var(--grey);
     border-radius: 16px;
     outline: 0;
   }
 
-  & > button {
+  & > form > button {
     padding: 10px 20px;
     border: 1px solid var(--grey);
     margin: 0 0 0 10px;
@@ -36,9 +36,31 @@ export const TodoForm = styled.div`
 `;
 
 export const TodoItem = styled.div`
-  padding: 4px 0;
+  padding: 5px 0;
 
-  & > label > input[type=checkbox] {
-    margin: 0 10px 0 0;
+  & > label {
+    margin: 0 5px 0 0;
+
+    & > input[type=checkbox] {
+      margin: 0 10px 0 0;
+    }
+  }
+
+  & > a {
+    &:not(:first-child) {
+      margin: 0 0 0 5px;
+    }
+
+    &:link, &:active, &:visited {
+      color: var(--link-colour);
+      border: 1px solid var(--grey);
+      border-radius: 16px;
+      padding: 0 10px;
+      text-decoration: none;
+    }
+
+    &:hover {
+      color: var(--link-hover-colour);
+    }
   }
 `;
