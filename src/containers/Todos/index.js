@@ -7,39 +7,37 @@ class Todos extends Component {
     super(props);
     this.state = {
       todos: [
-        { id: 1, goal: 'Estudar desenvolvimento web', status: false },
-        { id: 2, goal: 'Estudar coreano', status: true },
-        { id: 3, goal: 'Estudar norueguês', status: true },
-        { id: 4, goal: 'Fazer workout', status: false },
-        { id: 5, goal: 'Desenvolver o projeto da pós', status: true },
+        { goal: 'Estudar desenvolvimento web', status: false },
+        { goal: 'Estudar coreano', status: true },
+        { goal: 'Estudar norueguês', status: true },
+        { goal: 'Fazer workout', status: false },
+        { goal: 'Desenvolver o projeto da pós', status: true },
       ],
       newGoalText: ''
     }
   }
 
-  handleTextInput = (e) => {
-    this.setState({ newGoalText: e.target.value });
-  }
+  handleTextInput = (e) => this.setState({ newGoalText: e.target.value });
 
-  //FIXME: Change state is not working
   handleCheckbox = (e) => {
-    this.setState();
+    const { todos } = this.state;
+
+    this.setState(prevState => ({
+      todos: [
+        ...prevState.todos,
+      ]
+    }), () => console.log(todos));
   }
 
   handleAddGoal = (e) => {
     e.preventDefault();
 
     const { newGoalText } = this.state;
-
-    //FIXME: TEMPORARY APPROACH - Deleting items will break the id existence
-    const id = this.state.todos.length + 1;
-    const object = { id, goal: newGoalText, status: false }
+    const object = { goal: newGoalText, status: false }
 
     if (newGoalText !== '') {
       this.setState({
-        todos: [
-          ...this.state.todos, object
-        ]
+        todos: [...this.state.todos, object]
       });
 
       this.setState({ newGoalText: '' });
@@ -49,14 +47,10 @@ class Todos extends Component {
   }
 
   //TODO: Add functionality Edit
-  handleEditGoal = (e) => {
-    alert('Funcionalidade não disponível na versão 1');
-  }
+  handleEditGoal = (e) => alert('Funcionalidade não disponível na versão 1');
 
   //TODO: Add functionality Delete
-  handleDeleteGoal = (e) => {
-    alert('Funcionalidade não disponível na versão 1');
-  }
+  handleDeleteGoal = (e) => alert('Funcionalidade não disponível na versão 1');
 
   render() {
     const { todos, newGoalText } = this.state;
@@ -74,8 +68,9 @@ class Todos extends Component {
           </form>
         </TodoForm>
 
-        {todos.map((todo) => (
-          <TodoItem key={todo.id}>
+        {/* FIXME: index approach */}
+        {todos.map((todo, index) => (
+          <TodoItem key={index}>
             <label>
               <input type="checkbox" defaultChecked={todo.status} onChange={this.handleCheckbox} />
               {todo.goal}
