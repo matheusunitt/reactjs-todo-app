@@ -7,26 +7,34 @@ export default createGlobalStyle`
     box-sizing: border-box;
     color: var(--black);
   }
+
   html, body, #root {
     max-height: 100vh;
     max-width: 100vw;
     width: 100%;
     height: 100%;
   }
+
   *, input, button {
     border: 0;
     font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Ubuntu, Arial, sans-serif;
   }
+
   html {
     background-color: var(--white);
   }
+  
   :root {
     --white: #fff;
     --black: #000;
-    --primary: blue;
-    --secondary: red;
+    --palegrey: #f5f5f5;
+    --lightgrey: #e2e2e2;
     --grey: #ccc;
+
     --link-colour: #6d8fb3;
     --link-hover-colour: #3e7ab9;
+
+    --primary: blue;
+    --secondary: red;
   }
 `;

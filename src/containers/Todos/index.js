@@ -1,20 +1,42 @@
 import React, { Component } from 'react';
 
-import { Container, TodoForm, TodoItem } from './styles';
+import {
+  Container,
+  TodoList,
+  TodoForm,
+  TodoItem,
+} from './styles';
+
+import RemoveIcon from '@material-ui/icons/Delete';
 
 class Todos extends Component {
   constructor(props) {
     super(props);
     this.state = {
       todos: [
-        { goal: 'Estudar desenvolvimento web', status: false },
-        { goal: 'Estudar coreano', status: true },
-        { goal: 'Estudar norueguês', status: true },
-        { goal: 'Fazer workout', status: false },
-        { goal: 'Desenvolver o projeto da pós', status: true },
+        {
+          goals: [
+            { title: 'Estudar desenvolvimento web', status: false },
+            { title: 'Estudar coreano', status: true },
+            { title: 'Estudar norueguês', status: true },
+            { title: 'Fazer workout', status: false },
+            { title: 'Desenvolver o projeto da pós', status: true }
+          ],
+        },
+        {
+          goals: [
+            { title: 'Estudar desenvolvimento web', status: false },
+            { title: 'Estudar coreano', status: false },
+          ],
+        }
       ],
-      newGoalText: ''
+      newGoalText: '',
+      isHidden: false,
     }
+  }
+
+  handleAddTodo = () => {
+
   }
 
   handleTextInput = (e) => this.setState({ newGoalText: e.target.value });
@@ -46,39 +68,49 @@ class Todos extends Component {
     }
   }
 
-  //TODO: Add functionality Edit
-  handleEditGoal = (e) => alert('Funcionalidade não disponível na versão 1');
+  handleShowButton = () => {
+    this.setState({ isHidden: true });
+  }
+
+  handleHideButton = () => {
+    this.setState({ isHidden: false });
+  }
 
   //TODO: Add functionality Delete
   handleDeleteGoal = (e) => alert('Funcionalidade não disponível na versão 1');
 
   render() {
-    const { todos, newGoalText } = this.state;
+    const { todos, newGoalText, isHidden } = this.state;
 
     return (
       <Container>
-        <TodoForm>
-          <form onSubmit={this.handleAddGoal}>
-            <input
-              type="text"
-              value={newGoalText}
-              onChange={this.handleTextInput}
-              placeholder="Qual o título da sua meta?" />
-            <button type="submit" onClick={this.handleAddGoal}>Adicionar</button>
-          </form>
-        </TodoForm>
+        <button className="btn" onClick={this.handleAddTodo}>Adicionar novo todo</button>
 
-        {/* FIXME: index approach */}
         {todos.map((todo, index) => (
-          <TodoItem key={index}>
-            <label>
-              <input type="checkbox" defaultChecked={todo.status} onChange={this.handleCheckbox} />
-              {todo.goal}
-            </label>
-            {/* TODO: Add buttons with images instead of links */}
-            <a href="#" onClick={this.handleEditGoal}>editar</a>
-            <a href="#" onClick={this.handleDeleteGoal}>remover</a>
-          </TodoItem>
+          <TodoList key={index}>
+            {/* FIXME: index approach */}
+            {todo.goals.map((goal, index) => (
+              <TodoItem key={index} onMouseEnter={this.handleShowButton} onMouseLeave={this.handleHideButton}>
+                <input type="checkbox" defaultChecked={goal.status} onChange={this.handleCheckbox} />
+                <input type="text" defaultValue={goal.title} />
+
+                <div className={`ribbon ${isHidden ? 'show' : ''}`} onClick={this.handleDeleteGoal}>
+                  <RemoveIcon />
+                </div>
+              </TodoItem>
+            )) || []}
+
+            <TodoForm>
+              <form onSubmit={this.handleAddGoal}>
+                <input
+                  type="text"
+                  value={newGoalText}
+                  onChange={this.handleTextInput}
+                  placeholder="Qual o título da sua meta?" />
+                <button className="btn" type="submit" onClick={this.handleAddGoal}>Adicionar</button>
+              </form>
+            </TodoForm>
+          </TodoList>
         )) || []}
       </Container>
     );
